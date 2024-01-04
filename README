@@ -51,9 +51,5 @@ Do we collect any customer data?
 The script doesn't collect any customer data. It does collect table names, and some queries (up to 50 characters)
 
 What is the next step after getting HTML report?
-Open a SpecReq and involve a database expert to deliver the 'PostgreSQL Database Operational Review'.
+Open a AWS request and involve a database expert to deliver the 'PostgreSQL Database Operational Review'.
 
-Where can I find the sample report?
-Sample reports are hosted here:
-RDS PostgreSQL
-Aurora PostgreSQL
