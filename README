@@ -1,0 +1,59 @@
+PostgreSQL Health Check script
+
+PostgreSQL health-check review is shell script written in bash language. Running this script creates an HTML output report file. 
+
+Why script is needed?
+AWS support cannot connect to customer databases. In order to deliver an effective session database review with customized recommendations, some of the metadata of the concerned database is needed. The script helps collecting those data.
+
+How to run the script?
+Customers need to run the script on an EC2 instance. EC2 instance should have AWS CLI and psql client installed. Below are the steps to run the script:
+
+1. Copy script on Amazon EC2 Linux instance with AWS CLI configured, and psql client installed with accessibility to RDS/Aurora Postgres instance
+2. Make script executable: chmod +x pg_health_check.sh
+3. Run the script: ./pg_health_check.sh
+4. Use the RDS PostgreSQL or Aurora PostgreSQL Writer instance endpoint URL for connection
+5. The database user should have READ access on all of the tables to get better metrics
+6. It will take around 2-3 mins to run (depending on size of instance), and generate html report:  <CompanyName>_<DatabaseIdentifier>_report_<date>.html
+
+What are the inputs for the script?
+Customers need to provide RDS/Aurora PostgreSQL endpoint URL, database name, port, database user name, password and company name.
+
+Do we store any customer inputs?
+Inputs are used to run the script successfully. We don't store any inputs.
+
+What data are collected by the script?
+Script collects below data:
+
+Total Size of Log Files
+Total Size of ALL Databases
+Maximum Used Transaction IDs
+Duplicate Indexes
+Unused Indexes
+Database Age
+Top 10 Most Bloated Tables
+Top 10 Biggest Tables Last Vacuumed
+Top 10 UPDATE/DELETE Tables
+Vacuum Parameters
+Key PostgreSQL Parameters
+Logging Parameters
+Aurora PostgreSQL Specific Parameters
+Top 10 Read IO Tables
+Top 10 CPU Consuming SQLs
+Top 10 Read Queries
+
+Does script generate recommendations?
+Script mentions best practices for the PostgreSQL settings and parameters. Current version of script points to 10 AWS documents (blogs/user-guides) and 12 PostgreSQL official dos. The script doesn't generate customized recommendations. Customized recommendations are provided by the database expert during the engagement.
+
+Is there any performance impact while running the script?
+Script only queries system catalogs and runs AWS CLI commands. Typically, these commands are quick and doesn't impact performance. Its recommended to read the script thoroughly, and test it in testing environment before running it in production environment.
+
+Do we collect any customer data?
+The script doesn't collect any customer data. It does collect table names, and some queries (up to 50 characters)
+
+What is the next step after getting HTML report?
+Open a SpecReq and involve a database expert to deliver the 'PostgreSQL Database Operational Review'.
+
+Where can I find the sample report?
+Sample reports are hosted here:
+RDS PostgreSQL
+Aurora PostgreSQL
